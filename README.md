@@ -6,9 +6,9 @@
 
 This plugin is useful for reducing development-test-run cycles. Run your project's command in a split pane, or a session.worker of your choice.
 
-By default `:Tmux ls` will split the current window (if single pane) or use pane 1
+By default `:Tmux will split the current window (if single pane) or use pane 1
 
-For normal use, you will run a single command `:Tmux make test` and then as you develop and need to test you can run the same command by `:TmuxRunAgain` or simply `<Leader> tt`
+For normal use, you will run a single command `:Tmux some_command` and then as you develop and need to test you can run the same command by `:TmuxRepeat` or simply `<Leader> tt`
 
 ## Commands
 
