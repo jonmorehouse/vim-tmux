@@ -5,7 +5,7 @@ fu! Tmux#Runner(command)
   " run in the split section here
   " if we don't have a second window - then go ahead and create one
   if Tmux#GetPanes() <= 1 
-    call system("tmux split-window -h")
+    call system("tmux split-window -hd")
   endif
   call Tmux#PaneCommand(Tmux#GetPane(), a:command)
 endfunction
