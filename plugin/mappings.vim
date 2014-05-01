@@ -2,7 +2,7 @@
 "   Public Mappings 
 """ 
 " generic command
-command! -nargs=* Tmux :call Tmux#Runner(<q-args>)
+command! -nargs=* Tmux :call Tmux#Runner(<f-args>)
 " delete the window
 command TmuxDelete :call Tmux#Delete()
 " repeat command
