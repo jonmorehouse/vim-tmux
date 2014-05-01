@@ -1,13 +1,14 @@
 """
 "   Public Wrapper Functions (ie: called from command mappings)
 """
-fu! Tmux#Runner(command)
+fu! Tmux#Runner(...)
   " run in the split section here
   " if we don't have a second window - then go ahead and create one
   if Tmux#GetPanes() <= 1 
     call system("tmux split-window -hd")
   endif
-  call Tmux#PaneCommand(Tmux#GetPane(), a:command)
+
+  call Tmux#PaneCommand(Tmux#GetPane(), join(a:000, " "))
 endfunction
 
 " run the previous command again
@@ -31,8 +32,9 @@ endfunction
 """
 fu! Tmux#PaneCommand(pane, command)
   " generate tmux command to send keys
-  let tmuxCommand="tmux send-keys -t .". a:pane ." ". a:command . " ENTER"
-  call Tmux#RunCommand(tmuxCommand)
+  let command="tmux send-keys -t .". a:pane ." \"". a:command . "\" ENTER"
+  echo command
+  call Tmux#RunCommand(command)
 endfunction
 
 fu! Tmux#DeletePane(pane)
@@ -73,5 +75,6 @@ fu! System(command)
   let output=system(a:command)
   return substitute(output, '\n$', '', '')
 endfunction
+
 
 

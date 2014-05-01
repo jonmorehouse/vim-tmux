@@ -14,7 +14,9 @@ For normal use, you will run a single command `:Tmux make test` and then as you 
 
 ### Run Command
 > Pass a shell command to a new,current or specified pane
-
+ ```
+  :Tmux ls -alh && echo "HELLO WORLD" 
+ ```
 
 ### Repeat Last Command
 > Run the previous command again
