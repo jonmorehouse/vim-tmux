@@ -19,8 +19,7 @@ endfunction
 """
 fu! Tmux#GetSession()
   if !exists("g:tmuxSession")
-    let result=system("tmux display-message -p '#S'")
-    let g:tmuxSession=substitute(result, '\n$', '', '')
+    let g:tmuxSession=System("tmux display-message -p '#S'")
   endif
   return g:tmuxSession
 endfunction
@@ -35,7 +34,8 @@ fu! Tmux#RunCommand(command)
 endfunction
 
 fu! System(command)
-
+  let output=system(a:command)
+  return substitute(result, '\n$', '', '')
 endfunction
 
 
