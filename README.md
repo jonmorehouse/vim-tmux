@@ -10,12 +10,32 @@ By default `:Tmux ls` will split the current window (if single pane) or use pane
 
 For normal use, you will run a single command `:Tmux make test` and then as you develop and need to test you can run the same command by `:TmuxRunAgain` or simply `<Leader> tt`
 
+## Commands
+
+### Run Command
+> Pass a shell command to a new,current or specified pane
+
+
+### Repeat Last Command
+> Run the previous command again
+  ```
+    :TmuxRepeat
+  ```
+
+### Delete Pane
+> Delete pane that is running commands
+  ```
+    :TmuxDelete
+  ```
+
 ## Configuration Options
 
 ### Custom Tmux Session
 > Run command in a different session
 
-  ` let g:tmuxSession="some_other_session_name"`
+  ``` 
+    let g:tmuxSession="some_other_session_name"
+  ```
 
 ### Custom Tmux Pane (instead of #1)
 > Specify a specific pane to run commands in

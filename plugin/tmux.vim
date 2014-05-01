@@ -11,11 +11,19 @@ fu! Tmux#Runner(command)
 endfunction
 
 " run the previous command again
-fu! Tmux#RunAgain()
+fu! Tmux#Repeat()
   if !exists("g:tmuxLastCommand")
     return
   endif
   call Tmux#RunCommand(g:tmuxLastCommand)
+endfunction
+
+" delete the tmux worker pane
+fu! Tmux#Delete()
+  if !exists("g:tmuxLastCommand")
+    return
+  endif
+  call Tmux#DeletePane(Tmux#GetPane())
 endfunction
 
 """
@@ -25,6 +33,11 @@ fu! Tmux#PaneCommand(pane, command)
   " generate tmux command to send keys
   let tmuxCommand="tmux send-keys -t .". a:pane ." ". a:command . " ENTER"
   call Tmux#RunCommand(tmuxCommand)
+endfunction
+
+fu! Tmux#DeletePane(pane)
+  let command="tmux kill-pane -t ". a:pane
+  call Tmux#RunCommand(command)
 endfunction
 
 """

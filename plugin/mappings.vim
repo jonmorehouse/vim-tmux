@@ -3,9 +3,15 @@
 """ 
 " generic command
 command! -nargs=* Tmux :call Tmux#Runner(<q-args>)
-command! TmuxRunAgain :call Tmux#RunAgain()
+" delete the window
+command TmuxDelete :call Tmux#Delete()
+" repeat command
+command! TmuxRepeat :call Tmux#Repeat()
 
 " map rr to the previous command
-map <Leader>tt :call Tmux#RunAgain()<CR>
+map <Leader>tt :call Tmux#Repeat()<CR>
+
+" generate lower case mappings
+
 
 
