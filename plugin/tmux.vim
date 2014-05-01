@@ -1,8 +1,13 @@
 """
 "   Public Wrapper Functions (ie: called from command mappings)
 """
-fu! Tmux#TmuxRunner(command)
-
+fu! Tmux#Runner(command)
+  " run in the split section here
+  " if we don't have a second window - then go ahead and create one
+  if Tmux#GetPanes() <= 1 
+    call system("tmux split-window -h")
+  endif
+  call Tmux#PaneCommand(Tmux#GetPane(), a:command)
 endfunction
 
 """
@@ -24,8 +29,17 @@ fu! Tmux#GetSession()
   return g:tmuxSession
 endfunction
 
+fu! Tmux#GetPanes()
+  " get number of commands
+  return eval(System("tmux list-panes | wc -l"))
+endfunction
+
 fu! Tmux#GetPane()
-  return "1"
+  if exists("g:tmuxPane")
+    return g:tmuxPane
+  else
+    return "1"
+  endif
 endfunction
 
 fu! Tmux#RunCommand(command)
@@ -35,8 +49,7 @@ endfunction
 
 fu! System(command)
   let output=system(a:command)
-  return substitute(result, '\n$', '', '')
+  return substitute(output, '\n$', '', '')
 endfunction
-
 
 
