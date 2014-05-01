@@ -10,6 +10,14 @@ fu! Tmux#Runner(command)
   call Tmux#PaneCommand(Tmux#GetPane(), a:command)
 endfunction
 
+" run the previous command again
+fu! Tmux#RunAgain()
+  if !exists("g:tmuxLastCommand")
+    return
+  endif
+  call Tmux#RunCommand(g:tmuxLastCommand)
+endfunction
+
 """
 "   Public functions 
 """
@@ -43,8 +51,9 @@ fu! Tmux#GetPane()
 endfunction
 
 fu! Tmux#RunCommand(command)
+  let g:tmuxLastCommand=a:command
   let command="printf \"\033c\" && ". a:command
-  call system(a:command)
+  call system(command)
 endfunction
 
 fu! System(command)
