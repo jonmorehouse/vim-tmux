@@ -6,7 +6,7 @@ let g:vim_tmux_loaded = 1
 " generic command
 command! -nargs=* Tmux :call tmux#Runner(<f-args>)
 " delete the window
-command TmuxDelete :call tmux#Delete()
+command! TmuxDelete :call tmux#Delete()
 " repeat command
 command! TmuxRepeat :call tmux#Repeat()
 
