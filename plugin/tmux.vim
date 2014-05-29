@@ -1,63 +1,63 @@
 """
 "   Public Wrapper Functions (ie: called from command mappings)
 """
-fu! Tmux#Runner(...)
+fu! tmux#Runner(...)
   " run in the split section here
   " if we don't have a second window - then go ahead and create one
-  if Tmux#GetPanes() <= 1 
+  if tmux#GetPanes() <= 1 
     call system("tmux split-window -hd")
   endif
 
-  call Tmux#PaneCommand(Tmux#GetPane(), join(a:000, " "))
+  call tmux#PaneCommand(tmux#GetPane(), join(a:000, " "))
 endfunction
 
 " run the previous command again
-fu! Tmux#Repeat()
+fu! tmux#Repeat()
   if !exists("g:tmuxLastCommand")
     return
   endif
-  call Tmux#RunCommand(g:tmuxLastCommand)
+  call tmux#RunCommand(g:tmuxLastCommand)
 endfunction
 
 " delete the tmux worker pane
-fu! Tmux#Delete()
+fu! tmux#Delete()
   if !exists("g:tmuxLastCommand")
     return
   endif
-  call Tmux#DeletePane(Tmux#GetPane())
+  call tmux#DeletePane(tmux#GetPane())
 endfunction
 
 """
 "   Public functions 
 """
-fu! Tmux#PaneCommand(pane, command)
+fu! tmux#PaneCommand(pane, command)
   " generate tmux command to send keys
   let command="tmux send-keys -t .". a:pane ." \"". a:command . "\" ENTER"
   echo command
-  call Tmux#RunCommand(command)
+  call tmux#RunCommand(command)
 endfunction
 
-fu! Tmux#DeletePane(pane)
+fu! tmux#DeletePane(pane)
   let command="tmux kill-pane -t ". a:pane
-  call Tmux#RunCommand(command)
+  call tmux#RunCommand(command)
 endfunction
 
 """
 "   Private Functions
 """
-fu! Tmux#GetSession()
+fu! tmux#GetSession()
   if !exists("g:tmuxSession")
     let g:tmuxSession=System("tmux display-message -p '#S'")
   endif
   return g:tmuxSession
 endfunction
 
-fu! Tmux#GetPanes()
+fu! tmux#GetPanes()
   " get number of commands
   return eval(System("tmux list-panes | wc -l"))
 endfunction
 
-fu! Tmux#GetPane()
+fu! tmux#GetPane()
   if exists("g:tmuxPane")
     return g:tmuxPane
   else
@@ -65,7 +65,7 @@ fu! Tmux#GetPane()
   endif
 endfunction
 
-fu! Tmux#RunCommand(command)
+fu! tmux#RunCommand(command)
   let g:tmuxLastCommand=a:command
   let command="printf \"\033c\" && ". a:command
   call system(command)
